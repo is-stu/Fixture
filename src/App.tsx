@@ -1,26 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useMemo, useState } from 'react';
+import { TeamsContext } from './helpers/context';
+import { MainHome } from './pages/MainHome';
 
-function App() {
+export const App = () => {
+  const [teams, setTeams] = useState([]);
+
+  const contextValue = useMemo(() => ({ teams, setTeams }), [teams]);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // @ts-ignore
+    <TeamsContext.Provider value={contextValue}>
+      <div className='bg-white grid grid-cols-2 w-screen h-screen'>
+        <MainHome />
+      </div>
+    </TeamsContext.Provider>
   );
-}
-
-export default App;
+};
